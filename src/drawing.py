@@ -6,9 +6,13 @@ class Point:
         self.y = y
 
 class Line:
-    def __init__(self, point_a, point_b):
-        self.point_a = point_a
-        self.point_b = point_b
+    def __init__(self, *args):
+        self.points = args
+
 
     def draw(self, canvas, fill_colour):
-        canvas.create_line(self.point_a.x, self.point_a.y, self.point_b.x, self.point_b.y, fill=fill_colour, width=5)
+        points = []
+        for point in self.points:
+            points.append(point.x)
+            points.append(point.y)
+        canvas.create_line(*points, fill=fill_colour, width=5)
