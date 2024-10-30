@@ -15,4 +15,4 @@ class Line:
         for point in self.points:
             points.append(point.x)
             points.append(point.y)
-        canvas.create_line(*points, fill=fill_colour, width=5)
+        canvas.create_line(*points, fill=fill_colour, width=3)
