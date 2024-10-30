@@ -35,7 +35,9 @@ class Cell:
     def draw_move(self, to_cell, undo=False):
         center = Point((self.__x1+self.__x2)/2, (self.__y1+self.__y2)/2)
         to_center = Point((to_cell.__x1+to_cell.__x2)/2, (to_cell.__y1+to_cell.__y2)/2)
-        if undo:
-            self.__win.draw_line(center, to_center, 'red')
-        self.__win.draw_line(center, to_center, 'gray')
+        line = Line(center, to_center)
+        if undo is False:
+            self.__win.draw_line(line, 'red')
+        else:
+            self.__win.draw_line(line, 'gray')
 
