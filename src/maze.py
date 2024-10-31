@@ -12,19 +12,20 @@ class Maze:
         self.cell_size_y = cell_size_y
         self.win = win
         self._cells = self._create_cells()
+        self._break_entrance_and_exit()
 
 
 
     def _create_cells(self):
 
-        rows = []
+        cells = []
         i = 0
         for row in range(self.num_cols):
             col = self._draw_cell(self.x1 + i, self.y1, self.x1 + self.cell_size_x + i, self.y1 + self.cell_size_y)
-            rows.append(col)
+            cells.append(col)
             i += self.cell_size_x
 
-        return rows
+        return cells
 
 
     def _draw_cell(self, x1, y1, x2, y2):
@@ -44,12 +45,14 @@ class Maze:
         time.sleep(0.05)
 
     def _break_entrance_and_exit(self):
+        if len(self._cells) == 0 or len(self._cells[0]) == 0:
+            return
         start = self._cells[0][0]
         start.has_left_wall = False
         if self.win is not None:
             start.draw()
         finish = self._cells[-1][-1]
-        finish.has_right_wall = False
+        finish.has_bottom_wall = False
         if self.win is not None:
             finish.draw()
 
