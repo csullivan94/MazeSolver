@@ -20,7 +20,7 @@ class Maze:
         self._cells = self._create_cells()
         if len(self._cells) > 0:
             self._break_entrance_and_exit()
-            self._break_walls_r(0,0)
+            self.visited_cells = self._break_walls_r(0,0)
             self._reset_cells_visited()
 
 
@@ -66,14 +66,9 @@ class Maze:
         if self.win is not None:
             finish.draw()
 
-    def _break_walls_r(self, cell_position_col, cell_position_row, visited = None):
-        if visited is None:
-            visited = []
-        else:
-            visited = visited
+    def _break_walls_r(self, cell_position_col, cell_position_row):
 
         current = (cell_position_col, cell_position_row)
-        visited.append(current)
         self._cells[cell_position_col][cell_position_row].visited = True
         while True:
             to_visit = []
@@ -88,7 +83,7 @@ class Maze:
             self.break_wall(current[0], current[1], next_cell[0], next_cell[1])
             if self.win is not None:
                 self._animate()
-            self._break_walls_r(next_cell[0], next_cell[1], visited)
+            self._break_walls_r(next_cell[0], next_cell[1])
 
 
 
@@ -128,6 +123,15 @@ class Maze:
         for column in self._cells:
             for cell in column:
                 cell.visited = False
+
+    def solve(self):
+        pass
+
+
+    def _solve_r(self, cur_col, cur_row):
+        pass
+
+
 
 
 
