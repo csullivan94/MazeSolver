@@ -1,16 +1,12 @@
 from window import *
 from cells import *
+from maze import *
 
 win = Create_window(800, 600)
 
-cell1 = Cell(0, 0, 50, 50, win)
-cell2 = Cell(100, 100, 150, 150, win)
+maze = Maze(10, 10, 5, 5, 40, 40, win)
 
-cell1.draw()
-cell2.draw()
-
-cell1.draw_move(cell2)
-
+maze._break_entrance_and_exit()
 
 
 
