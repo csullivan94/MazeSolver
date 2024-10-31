@@ -14,6 +14,7 @@ class Cell:
         self.__x2 = x2
         self.__y2 = y2
         self.__win = win
+        self.visited = False
 
     def __repr__(self):
         return f'top corner: ({self.__x1},{self.__y1}), bottom corner: ({self.__x2}, {self.__y2}) '

@@ -33,5 +33,43 @@ class Tests(unittest.TestCase):
             False
         )
 
+    def test_find_adjacent_top_left(self):
+        num_cols = 10
+        num_rows = 10
+        m1 = Maze(0, 0, num_rows, num_cols, 10, 10)
+        self.assertEqual(
+            m1.find_adjacent(0, 0),
+            [(1, 0), (0, 1)]
+        )
+
+    def test_find_adjacent(self):
+        num_cols = 10
+        num_rows = 10
+        m1 = Maze(0, 0, num_rows, num_cols, 10, 10)
+        self.assertEqual(
+            m1.find_adjacent(1, 2),
+            [(0, 2), (2, 2), (1,1), (1, 3)]
+        )
+
+    def test_find_adjacent_bottom_row(self):
+        num_cols = 10
+        num_rows = 10
+        m1 = Maze(0, 0, num_rows, num_cols, 10, 10)
+        self.assertEqual(
+            m1.find_adjacent(1, 10),
+            [(0, 10), (2, 10), (1,9)]
+        )
+
+    def test_reset_cells_visited(self):
+        m1 = Maze(0, 0, 5, 5, 10, 10)
+        for column in m1._cells:
+            for cell in column:
+                self.assertEqual(
+                    cell.visited,
+                    False
+                )
+
+
+
 if __name__ == "__main__":
     unittest.main()
