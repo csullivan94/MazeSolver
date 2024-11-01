@@ -2,9 +2,9 @@ from window import *
 from cells import *
 from maze import *
 
-win = Create_window(800, 600)
+win = Create_window(850, 850)
 
-maze = Maze(10, 10, 6, 6, 80, 80, win, 0)
+maze = Maze(10, 10, 10, 10, 80, 80, win )
 
 maze.solve()
 
