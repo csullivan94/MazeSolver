@@ -124,7 +124,7 @@ class Maze:
                 cell.visited = False
 
     def solve(self):
-        self._solve_r(0,0)
+        return self._solve_r(0,0)
 
 
     def _solve_r(self, cur_col, cur_row):
@@ -133,32 +133,43 @@ class Maze:
         current = (cur_col, cur_row)
         end = self._cells[-1][-1]
         current_cell.visited = True
-        if end.visited is True:
+        if end == current_cell:
             return True
         current_adjacent = self.find_adjacent(cur_col, cur_row)
         for cell_tuple in current_adjacent:
-            print(cell_tuple)
             next_cell = self._cells[cell_tuple[0]][cell_tuple[1]]
             if next_cell.visited is False:
                 if cell_tuple[0] == current[0]:
                     if cell_tuple[1] < current[1]:
                         if current_cell.has_top_wall is False and next_cell.has_bottom_wall is False:
                             current_cell.draw_move(next_cell)
-                            self._solve_r(cell_tuple[0], cell_tuple[1])
+                            if self._solve_r(cell_tuple[0], cell_tuple[1]) is not True:
+                                current_cell.draw_move(next_cell, undo=True)
+                            else:
+                                return True
                     else:
                         if current_cell.has_bottom_wall is False and next_cell.has_top_wall is False:
                             current_cell.draw_move(next_cell)
-                            self._solve_r(cell_tuple[0], cell_tuple[1])
+                            if self._solve_r(cell_tuple[0], cell_tuple[1]) is not True:
+                                current_cell.draw_move(next_cell, undo=True)
+                            else:
+                                return True
                 elif cell_tuple[0] > current[0]:
                     if current_cell.has_right_wall is False and next_cell.has_left_wall is False:
                         current_cell.draw_move(next_cell)
-                        self._solve_r(cell_tuple[0], cell_tuple[1])
+                        if self._solve_r(cell_tuple[0], cell_tuple[1]) is not True:
+                            current_cell.draw_move(next_cell, undo=True)
+                        else:
+                            return True
                 elif cell_tuple[0] < current[0]:
                     if current_cell.has_left_wall is False and next_cell.has_right_wall is False:
                         current_cell.draw_move(next_cell)
-                        self._solve_r(cell_tuple[0], cell_tuple[1])
-                else:
-                    return False
+                        if self._solve_r(cell_tuple[0], cell_tuple[1]) is not True:
+                            current_cell.draw_move(next_cell, undo=True)
+                        else:
+                            return True
+
+        return False
 
 
 
