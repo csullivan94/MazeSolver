@@ -86,7 +86,6 @@ class Maze:
             self._break_walls_r(next_cell[0], next_cell[1])
 
 
-
     def break_wall(self, cur_col, cur_row, next_col, next_row):
         if cur_col == next_col:
             if cur_row < next_row:
@@ -125,11 +124,43 @@ class Maze:
                 cell.visited = False
 
     def solve(self):
-        pass
+        self._solve_r(0,0)
 
 
     def _solve_r(self, cur_col, cur_row):
-        pass
+        self._animate()
+        current_cell = self._cells[cur_col][cur_row]
+        current = (cur_col, cur_row)
+        end = self._cells[-1][-1]
+        current_cell.visited = True
+        if end.visited is True:
+            return True
+        current_adjacent = self.find_adjacent(cur_col, cur_row)
+        for cell_tuple in current_adjacent:
+            print(cell_tuple)
+            next_cell = self._cells[cell_tuple[0]][cell_tuple[1]]
+            if next_cell.visited is False:
+                if cell_tuple[0] == current[0]:
+                    if cell_tuple[1] < current[1]:
+                        if current_cell.has_top_wall is False and next_cell.has_bottom_wall is False:
+                            current_cell.draw_move(next_cell)
+                            self._solve_r(cell_tuple[0], cell_tuple[1])
+                    else:
+                        if current_cell.has_bottom_wall is False and next_cell.has_top_wall is False:
+                            current_cell.draw_move(next_cell)
+                            self._solve_r(cell_tuple[0], cell_tuple[1])
+                elif cell_tuple[0] > current[0]:
+                    if current_cell.has_right_wall is False and next_cell.has_left_wall is False:
+                        current_cell.draw_move(next_cell)
+                        self._solve_r(cell_tuple[0], cell_tuple[1])
+                elif cell_tuple[0] < current[0]:
+                    if current_cell.has_left_wall is False and next_cell.has_right_wall is False:
+                        current_cell.draw_move(next_cell)
+                        self._solve_r(cell_tuple[0], cell_tuple[1])
+                else:
+                    return False
+
+
 
 
 
